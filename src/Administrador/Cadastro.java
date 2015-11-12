@@ -11,5 +11,5 @@ package Administrador;
  * @author aluno
  */
 public interface Cadastro {
-    int fodase;
+    int fodase = 8;
 }
