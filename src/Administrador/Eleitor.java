@@ -1,13 +1,20 @@
 package Administrador;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
-public class Eleitor {
-    String nome;
-    Date nascimento;
-    String titulo;
-    String zona;
-    String secao;
+public class Eleitor implements Cadastro{
+    static Scanner in = new Scanner(System.in);
+    static ArrayList<Eleitor> lista = new ArrayList();
+    private String nome;
+    private Date nascimento;
+    private String titulo;
+    private String zona;
+    private String secao;
+
+    public Eleitor() {              //para o cadastrador
+    }
 
     public Eleitor(String nome, Date nascimento, String titulo, String zona, String secao) {
         this.nome = nome;
@@ -56,15 +63,46 @@ public class Eleitor {
     public void setSecao(String secao) {
         this.secao = secao;
     }
-    
-    public static void Cadastrar(){}
-    
-    public static void excluir(){}
-    
-    public static void alterar(){}
-    
-    public static void listar(){}
-    
-    public static void pesquisar(){}
+
+    @Override
+    public void Cadastrar() {
+        System.out.println("Digite o nome do eleitor: ");
+        String nome = in.nextLine();
+        
+        //Fazer a data de nascimento
+        Date nasc = new Date();
+        
+        System.out.println("Digite o titulo do eleitor: ");
+        String titulo = in.next();
+        
+        System.out.println("A zona eleitoral do eleitor: ");
+        String zona = in.next();
+        
+        System.out.println("Digite a seção eleitoral do eleitor: ");
+        String secao = in.next();
+        
+        Eleitor aux = new Eleitor(nome, nasc, titulo, zona, secao);
+        this.lista.add(aux);
+    }
+
+    @Override
+    public void excluir() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void listar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void pesquisar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void alterar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

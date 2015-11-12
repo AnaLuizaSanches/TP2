@@ -1,9 +1,17 @@
 package Administrador;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Partido {
-    String nome;
-    String sigla;
-    String numero;
+    static Scanner in = new Scanner(System.in);
+    static ArrayList<Partido> lista = new ArrayList();
+    private String nome;
+    private String sigla;
+    private String numero;
+
+    public Partido() {      //para o cadastrador
+    }
 
     public Partido(String nome, String sigla, String numero) {
         this.nome = nome;
@@ -35,7 +43,19 @@ public class Partido {
         this.numero = numero;
     }
     
-    public static void Cadastrar(){}
+    public static void Cadastrar(){
+        System.out.println("Digite o nome do partido: ");
+        String nome = in.next();
+        
+        System.out.println("Digite a sigla do partido: ");
+        String sigla = in.next();
+        
+        System.out.println("Digite o numero do partido: ");
+        String numero = in.next();
+        
+        Partido aux = new Partido(nome, sigla, numero);
+        lista.add(aux);
+    }
     
     public static void excluir(){}
     
