@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Administrador;
 
-/**
- *
- * @author aluno
- */
-public class Presidente {
+import java.util.Date;
+
+public class Presidente extends Eleitor{
+
+    public Presidente(String nome, Date nascimento, String titulo, String zona, String secao) {
+        super(nome, nascimento, titulo, zona, secao);
+    }
     
+    public void iniciaEleição(){}
+
 }

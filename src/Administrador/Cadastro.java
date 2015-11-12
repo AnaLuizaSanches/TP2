@@ -1,15 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package Administrador;
 
-/**
- *
- * @author aluno
- */
 public interface Cadastro {
-    int fodase = 8;
+
+    public abstract void Cadastrar();
+    
+    public abstract void excluir();
+    
+    public abstract void listar();
+    
+    public abstract void pesquisar();
+    
+    public abstract void alterar();
 }
