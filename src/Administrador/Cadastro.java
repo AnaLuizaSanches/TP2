@@ -2,13 +2,13 @@ package Administrador;
 
 public interface Cadastro {
 
-    public abstract void Cadastrar();
+    public abstract void Cadastrar(Object o);
     
-    public abstract void excluir();
+    public abstract void excluir(Object o);
     
-    public abstract void listar();
+    public abstract void listar(Object o);
     
-    public abstract void pesquisar();
+    public abstract void pesquisar(Object o);
     
-    public abstract void alterar();
+    public abstract void alterar(Object o);
 }
