@@ -13,7 +13,7 @@ public class Candidato implements Cadastro{
     private String email;
     private Date nascimento;
     private Partido partido;    
-
+    
     public Candidato() {            //para o cadastrador
     }
 
@@ -66,6 +66,12 @@ public class Candidato implements Cadastro{
     }
 
     @Override
+    public String toString() {
+        return "codigo: " + codigo + " nome: " + nome + " email: " + email + " nascimento: "
+                + Data.getString(nascimento) + " partido: " + partido.toString();
+    }
+
+    @Override
     public void Cadastrar() {
         System.out.println("Digite o nome do candidato: ");
         String nome = in.nextLine();
@@ -76,15 +82,20 @@ public class Candidato implements Cadastro{
         System.out.println("Digite o email do candidato: ");
         String email = in.next();
         
-        //colocar date aqui 
-        Date test = new Date();
+        //Data de nascimento    
+        System.out.println("digite a data de nascimento (dd/mm/yyyy): ");
+        String dataStr = in.next();
+        Date nascimento = Data.getDate(dataStr);
+       
         
         //depois de criar o arraylist estatico de partidos criar um iterator para procurar um partido digitado pelo usuario
+        System.out.println("Digite o código do partido: ");
+        
         Partido teste = new Partido();
         
         //so de teste isso
-        Candidato c = new Candidato(codigo, nome, email, test, teste);
-        this.lista.add(c);
+        Candidato aux = new Candidato(codigo, nome, email, nascimento, teste);
+        this.lista.add(aux);
     }
 
     @Override

@@ -65,12 +65,20 @@ public class Eleitor implements Cadastro{
     }
 
     @Override
+    public String toString() {
+        return "nome: " + nome + " nascimento: " + nascimento + " titulo: " + 
+                titulo + " zona: " + zona + " secao: " + secao;
+    }
+
+    @Override
     public void Cadastrar() {
         System.out.println("Digite o nome do eleitor: ");
         String nome = in.nextLine();
         
-        //Fazer a data de nascimento
-        Date nasc = new Date();
+        //Data de nascimento    
+        System.out.println("digite a data de nascimento (dd/mm/yyyy): ");
+        String dataStr = in.next();
+        nascimento = Data.getDate(dataStr);
         
         System.out.println("Digite o titulo do eleitor: ");
         String titulo = in.next();
@@ -81,7 +89,7 @@ public class Eleitor implements Cadastro{
         System.out.println("Digite a seção eleitoral do eleitor: ");
         String secao = in.next();
         
-        Eleitor aux = new Eleitor(nome, nasc, titulo, zona, secao);
+        Eleitor aux = new Eleitor(nome, nascimento, titulo, zona, secao);
         this.lista.add(aux);
     }
 
@@ -104,5 +112,4 @@ public class Eleitor implements Cadastro{
     public void alterar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

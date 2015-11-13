@@ -42,6 +42,11 @@ public class Partido {
     public void setNumero(String numero) {
         this.numero = numero;
     }
+
+    @Override
+    public String toString() {
+        return " numero: " + numero + " sigla: " + sigla + "nome: " + nome;
+    }
     
     public static void Cadastrar(){
         System.out.println("Digite o nome do partido: ");
