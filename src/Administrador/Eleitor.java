@@ -2,6 +2,7 @@ package Administrador;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Eleitor implements Cadastro{
@@ -95,21 +96,70 @@ public class Eleitor implements Cadastro{
 
     @Override
     public void excluir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Digite a posição que deseja excluir: ");
+        int posicao = in.nextInt();
+        this.lista.remove(posicao);
+        System.out.println("Eleitor removido.");
     }
 
     @Override
     public void listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Iterator i = this.lista.iterator();
+        int quantidade = 0;
+        
+        while(i.hasNext()){ 
+            i.next();
+            quantidade++;
+        }
+        
+        for(int j=0; j <=quantidade; j++){
+            System.out.println(this.lista.get(j).getNome());
+            System.out.println(this.lista.get(j).getTitulo());
+            System.out.println("\n");
+        }
     }
 
     @Override
     public void pesquisar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Digite o nome do eleitor que deseja pesquisar: ");
+        String nome = in.next();
+        Iterator i = this.lista.iterator();
+        int quantidade = 0;
+        
+        while(i.hasNext()){     
+            i.next();
+            quantidade++;
+        }
+        
+        for(int j=0; j <=quantidade; j++){   
+            if(this.lista.get(j).getNome().equals(nome)){
+                System.out.println(this.lista.get(j).getNome());
+                System.out.println(this.lista.get(j).getNascimento());
+                System.out.println(this.lista.get(j).getTitulo());
+                System.out.println("\n");
+            }
+        }
     }
 
     @Override
     public void alterar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Digite a posicao do eleitor que deseja alterar: ");
+        int posicao = in.nextInt();
+        
+        System.out.println("Novo nome: ");
+        String novon = in.next();
+        this.lista.get(posicao).setNome(novon);
+        
+        System.out.println("Nova zona: ");
+        String novaz = in.next();
+        this.lista.get(posicao).setZona(novaz);
+        
+        System.out.println("Nova secao: ");
+        String novas = in.next();
+        this.lista.get(posicao).setSecao(novas);
+        
+        System.out.println("Nova data de nascimento (dd/mm/yyyy): ");
+        String novad = in.next();
+        this.lista.get(posicao).setNascimento(Data.getDate(novad));
     }
 }

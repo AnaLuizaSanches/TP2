@@ -1,6 +1,7 @@
 package Administrador;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Partido {
@@ -9,6 +10,8 @@ public class Partido {
     private String nome;
     private String sigla;
     private String numero;
+    
+    static Partido cadastrador = new Partido();
 
     public Partido() {      //para o cadastrador
     }
@@ -62,12 +65,60 @@ public class Partido {
         lista.add(aux);
     }
     
-    public static void excluir(){}
+    public static void excluir(){
+        System.out.println("Digite a posicao do partido que deseja excluir: ");
+        int posicao = in.nextInt();
+        lista.remove(posicao);
+    }
     
-    public static void alterar(){}
+    public static void alterar(){
+        System.out.println("Digite a posicao do partido que deseja alterar: ");
+        int posicao = in.nextInt();
+        
+        System.out.println("Novo nome: ");
+        String nome = in.next();
+        lista.get(posicao).setNome(nome);
+        
+        System.out.println("Nova sigla: ");
+        String sigla = in.next();
+        lista.get(posicao).setSigla(sigla);
+    }
     
-    public static void listar(){}
+    public static void listar(){
+        Iterator i = lista.iterator();
+        int quantidade = 0;
+        
+        while(i.hasNext()){ 
+            i.next();
+            quantidade++;
+        }
+        
+        for(int j=0; j <=quantidade; j++){      
+            System.out.println(lista.get(j).getNome());
+            System.out.println(lista.get(j).getSigla());
+            System.out.println(lista.get(j).getNumero());
+            System.out.println("\n");
+        }
+    }
     
-    public static void pesquisar(){}
-    
+    public static void pesquisar(){
+        Iterator i = lista.iterator();
+        int quantidade = 0;
+        System.out.println("Digite o numero do partido que deseja pesquisar: ");
+        String num = in.next();
+        
+        while(i.hasNext()){     //pega quantos prefeitos existem na lista
+            i.next();
+            quantidade++;
+        }
+        
+        for(int j=0; j <=quantidade; j++){ 
+            if(lista.get(j).getNumero().equals(num)){
+                System.out.println(lista.get(j).getNome());
+                System.out.println(lista.get(j).getSigla());
+                System.out.println(lista.get(j).getNumero());
+                System.out.println("\n");
+            }
+        }
+    }
 }

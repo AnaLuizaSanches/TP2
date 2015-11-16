@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Candidato implements Cadastro{
+public abstract class Candidato implements Cadastro{
     static Scanner in = new Scanner(System.in);
-    static ArrayList<Candidato> lista = new ArrayList();
     private String codigo;
     private String nome;
     private String email;
@@ -72,50 +71,18 @@ public class Candidato implements Cadastro{
     }
 
     @Override
-    public void Cadastrar() {
-        System.out.println("Digite o nome do candidato: ");
-        String nome = in.nextLine();
-        
-        System.out.println("Digite o codigo do candidato: ");
-        String codigo = in.next();
-        
-        System.out.println("Digite o email do candidato: ");
-        String email = in.next();
-        
-        //Data de nascimento    
-        System.out.println("digite a data de nascimento (dd/mm/yyyy): ");
-        String dataStr = in.next();
-        Date nascimento = Data.getDate(dataStr);
-       
-        
-        //depois de criar o arraylist estatico de partidos criar um iterator para procurar um partido digitado pelo usuario
-        System.out.println("Digite o código do partido: ");
-        
-        Partido teste = new Partido();
-        
-        //so de teste isso
-        Candidato aux = new Candidato(codigo, nome, email, nascimento, teste);
-        this.lista.add(aux);
-    }
+    public abstract void Cadastrar();
 
     @Override
-    public void excluir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract void excluir();
 
     @Override
-    public void listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract void listar();
 
     @Override
-    public void pesquisar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract void pesquisar();
 
     @Override
-    public void alterar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract void alterar();
     
 }
