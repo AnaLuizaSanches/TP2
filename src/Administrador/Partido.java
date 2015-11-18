@@ -6,12 +6,10 @@ import java.util.Scanner;
 
 public class Partido {
     static Scanner in = new Scanner(System.in);
-    static ArrayList<Partido> lista = new ArrayList();
+    public static ArrayList<Partido> lista = new ArrayList();
     private String nome;
     private String sigla;
     private String numero;
-    
-    static Partido cadastrador = new Partido();
 
     public Partido() {      //para o cadastrador
     }
@@ -66,22 +64,30 @@ public class Partido {
     }
     
     public static void excluir(){
-        System.out.println("Digite a posicao do partido que deseja excluir: ");
-        int posicao = in.nextInt();
-        lista.remove(posicao);
+        try {
+            System.out.println("Digite a posicao do partido que deseja excluir: ");
+            int posicao = in.nextInt();
+            lista.remove(posicao);
+        } catch (NumberFormatException e){
+            System.out.println("Erro na formatação.");
+        }
     }
     
     public static void alterar(){
-        System.out.println("Digite a posicao do partido que deseja alterar: ");
-        int posicao = in.nextInt();
-        
-        System.out.println("Novo nome: ");
-        String nome = in.next();
-        lista.get(posicao).setNome(nome);
-        
-        System.out.println("Nova sigla: ");
-        String sigla = in.next();
-        lista.get(posicao).setSigla(sigla);
+        try {
+            System.out.println("Digite a posicao do partido que deseja alterar: ");
+            int posicao = in.nextInt();
+
+            System.out.println("Novo nome: ");
+            String nome = in.next();
+            lista.get(posicao).setNome(nome);
+
+            System.out.println("Nova sigla: ");
+            String sigla = in.next();
+            lista.get(posicao).setSigla(sigla);
+        } catch (NumberFormatException e){
+            System.out.println("Erro na formatação.");
+        }
     }
     
     public static void listar(){
@@ -93,7 +99,7 @@ public class Partido {
             quantidade++;
         }
         
-        for(int j=0; j <=quantidade; j++){      
+        for(int j=0; j <quantidade; j++){      
             System.out.println(lista.get(j).getNome());
             System.out.println(lista.get(j).getSigla());
             System.out.println(lista.get(j).getNumero());
@@ -112,7 +118,7 @@ public class Partido {
             quantidade++;
         }
         
-        for(int j=0; j <=quantidade; j++){ 
+        for(int j=0; j <quantidade; j++){ 
             if(lista.get(j).getNumero().equals(num)){
                 System.out.println(lista.get(j).getNome());
                 System.out.println(lista.get(j).getSigla());

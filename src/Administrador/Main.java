@@ -1,16 +1,153 @@
 package Administrador;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.Scanner;
 
-public class Main {                //Para testes
+public class Main {                
 
     public static void main(String[] args) {
+        preCadastros();
+        menuCadastros();        //inicia partes de cadastros
         
     }
     
-    public void preCadastros(){
+    public static void menuCadastros(){
+        boolean loop = true;
+        Scanner in = new Scanner(System.in);
+        do{
+            System.out.println("Qual cadastro deseja configurar?");
+            System.out.println("1- Prefeito");
+            System.out.println("2- Vereador");
+            System.out.println("3- Vice-Prefeito");
+            System.out.println("4- Eleitor");
+            System.out.println("5- Partido");
+            System.out.println("6- Inicar eleição");
+            int option = in.nextInt();
+            switch(option){
+                case 1:
+                    menu2(1);
+                    break;
+                case 2:
+                    menu2(2);
+                    break;
+                case 3:
+                    menu2(3);
+                    break;
+                case 4:
+                    menu2(4);
+                    break;
+                case 5:
+                    menu2(5);
+                    break;
+                case 6:
+                    loop = false;
+                default:
+                    System.out.println("Opção irregular.");
+                    break;
+            }
+        }while(loop);
+    }
+    
+    public static void menu2(int index){
+        Scanner in = new Scanner(System.in);
+        do{
+            System.out.println("Qual opção deseja?");
+            System.out.println("1- Cadastrar");
+            System.out.println("2- Excluir");
+            System.out.println("3- Alterar");
+            System.out.println("4- Listar");
+            System.out.println("5- Pesquisar");
+            System.out.println("6- Sair");
+            int option = in.nextInt();
+            switch(option){
+                case 1:
+                    if(index == 1)
+                        Prefeito.cadastrador.Cadastrar();
+                    else
+                        if(index == 2)
+                            Vereador.cadastrador.Cadastrar();
+                    else
+                            if(index == 3)
+                                VicePrefeito.cadastrador.Cadastrar();
+                    else
+                                if(index == 4)
+                                    Eleitor.cadastrador.Cadastrar();
+                    else
+                                    if(index == 5)
+                                        Partido.Cadastrar();
+                    break;
+                case 2:
+                    if(index == 1)
+                        Prefeito.cadastrador.excluir();
+                    else
+                        if(index == 2)
+                            Vereador.cadastrador.excluir();
+                    else
+                            if(index == 3)
+                                VicePrefeito.cadastrador.excluir();
+                    else
+                                if(index == 4)
+                                    Eleitor.cadastrador.excluir();
+                    else
+                                    if(index == 5)
+                                        Partido.excluir();
+                    break;
+                case 3:
+                    if(index == 1)
+                        Prefeito.cadastrador.alterar();
+                    else
+                        if(index == 2)
+                            Vereador.cadastrador.alterar();
+                    else
+                            if(index == 3)
+                                VicePrefeito.cadastrador.alterar();
+                    else
+                                if(index == 4)
+                                    Eleitor.cadastrador.alterar();
+                    else
+                                    if(index == 5)
+                                        Partido.alterar();
+                    break;
+                case 4:
+                    if(index == 1)
+                        Prefeito.cadastrador.listar();
+                    else
+                        if(index == 2)
+                            Vereador.cadastrador.listar();
+                    else
+                            if(index == 3)
+                                VicePrefeito.cadastrador.listar();
+                    else
+                                if(index == 4)
+                                    Eleitor.cadastrador.listar();
+                    else
+                                    if(index == 5)
+                                        Partido.listar();
+                    break;
+                case 5:
+                    if(index == 1)
+                        Prefeito.cadastrador.pesquisar();
+                    else
+                        if(index == 2)
+                            Vereador.cadastrador.pesquisar();
+                    else
+                            if(index == 3)
+                                VicePrefeito.cadastrador.pesquisar();
+                    else
+                                if(index == 4)
+                                    Eleitor.cadastrador.pesquisar();
+                    else
+                                    if(index == 5)
+                                        Partido.pesquisar();
+                    break;
+                case 6:
+                    return;
+                default:
+                    System.out.println("Opção irregular");
+            }
+        }while(true);
+    }
+    
+    public static void preCadastros(){
         //Partidos 
         Partido pt1 = new Partido("partidoBom", "PB", "01");
         Partido.lista.add(pt1);
@@ -42,6 +179,14 @@ public class Main {                //Para testes
         Vereador.lista.add(v2);
         Vereador v3 = new Vereador("0003", "NataliaSales", "NS@gmail.com", Data.getDate("01/05/1990"), pt3);
         Vereador.lista.add(v3);
+        
+        //Eleitores
+        Eleitor e1 = new Eleitor();
+        Eleitor.lista.add(e1);
+        Eleitor e2 = new Eleitor();
+        Eleitor.lista.add(e2);
+        Eleitor e3  =new Eleitor();
+        Eleitor.lista.add(e3);
     }
     
 }

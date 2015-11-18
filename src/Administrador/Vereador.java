@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 public class Vereador extends Candidato{
-    static ArrayList<Vereador> lista = new ArrayList();
+    public static ArrayList<Vereador> lista = new ArrayList();
     static Vereador cadastrador = new Vereador();
 
     public Vereador() {
@@ -20,8 +20,20 @@ public class Vereador extends Candidato{
         System.out.println("Digite o nome do candidato: ");
         String nome = in.nextLine();
         
-        System.out.println("Digite o codigo do candidato: ");
-        String codigo = in.next();
+        String codigo = null;
+        boolean loop = true;
+        do{
+            try{
+                System.out.println("Digite o codigo do candidato: ");
+                codigo = in.next();
+                if(codigo.length() != 4)
+                    throw new Exception();
+                else
+                    loop = false;
+            } catch(Exception e){
+                System.out.println("O codigo do vereador deve possuir 4 digitos.");
+            }
+        } while(loop);
         
         System.out.println("Digite o email do candidato: ");
         String email = in.next();
@@ -41,9 +53,13 @@ public class Vereador extends Candidato{
 
     @Override
     public void excluir() {
-        System.out.println("Digite a posicao do Vereador que deseja excluir: ");
-        int posicao = in.nextInt();
-        this.lista.remove(posicao);
+        try {
+            System.out.println("Digite a posicao do Vereador que deseja excluir: ");
+            int posicao = in.nextInt();
+            this.lista.remove(posicao);
+        } catch (NumberFormatException e){
+            System.out.println("Erro na formatação.");
+        }
     }
 
     @Override
@@ -56,7 +72,7 @@ public class Vereador extends Candidato{
             quantidade++;
         }
         
-        for(int j=0; j <=quantidade; j++){      //mostra somente o nome e o codigo dos caras
+        for(int j=0; j <quantidade; j++){      //mostra somente o nome e o codigo dos caras
             System.out.println(this.lista.get(j).getNome());
             System.out.println(this.lista.get(j).getCodigo());
             System.out.println("\n");
@@ -76,7 +92,7 @@ public class Vereador extends Candidato{
             quantidade++;
         }
         
-        for(int j=0; j <=quantidade; j++){
+        for(int j=0; j <quantidade; j++){
             if(this.lista.get(j).getNome().equals(nome)){
                 System.out.println(this.lista.get(j).getNome());
                 System.out.println(this.lista.get(j).getNascimento());
@@ -87,25 +103,29 @@ public class Vereador extends Candidato{
 
     @Override
     public void alterar() {
-        System.out.println("Digite o numero do candidato que deseja alterar: ");
-        int posicao = in.nextInt();
-        
-        System.out.println("Novo nome: ");
-        String novon = in.next();
-        this.lista.get(posicao).setNome(novon);
-        
-        System.out.println("Novo email: ");
-        String novoem = in.next();
-        this.lista.get(posicao).setEmail(novoem);
-        
-        System.out.println("Nova data de nascimento (dd/mm/yyyy): ");
-        String dataStr = in.next();
-        this.lista.get(posicao).setNascimento(Data.getDate(dataStr));
-        
-        //Olhar isso aqui
-        System.out.println("Novo partido: ");
-        Partido partido = lookForPartido();
-        this.lista.get(posicao).setPartido(partido);
+        try{
+            System.out.println("Digite a posição do candidato que deseja alterar: ");
+            int posicao = in.nextInt();
+
+            System.out.println("Novo nome: ");
+            String novon = in.next();
+            this.lista.get(posicao).setNome(novon);
+
+            System.out.println("Novo email: ");
+            String novoem = in.next();
+            this.lista.get(posicao).setEmail(novoem);
+
+            System.out.println("Nova data de nascimento (dd/mm/yyyy): ");
+            String dataStr = in.next();
+            this.lista.get(posicao).setNascimento(Data.getDate(dataStr));
+
+            //Olhar isso aqui
+            System.out.println("Novo partido: ");
+            Partido partido = lookForPartido();
+            this.lista.get(posicao).setPartido(partido);
+        } catch (NumberFormatException e){
+            System.out.println("Erro na formatação.");
+        }
     }
     
     public Partido lookForPartido(){       //Procura por um partido

@@ -7,7 +7,8 @@ import java.util.Scanner;
 
 public class Eleitor implements Cadastro{
     static Scanner in = new Scanner(System.in);
-    static ArrayList<Eleitor> lista = new ArrayList();
+    public static ArrayList<Eleitor> lista = new ArrayList();
+    public static Eleitor cadastrador = new Eleitor();
     private String nome;
     private Date nascimento;
     private String titulo;
@@ -77,14 +78,18 @@ public class Eleitor implements Cadastro{
         String nome = in.nextLine();
         
         //Data de nascimento    
-        System.out.println("digite a data de nascimento (dd/mm/yyyy): ");
-        String dataStr = in.next();
-        nascimento = Data.getDate(dataStr);
+        try {
+            System.out.println("digite a data de nascimento (dd/mm/yyyy): ");
+            String dataStr = in.next();
+            nascimento = Data.getDate(dataStr);
+        } catch(NumberFormatException e){
+            System.out.println("Erro na formatação.");
+        }
         
         System.out.println("Digite o titulo do eleitor: ");
         String titulo = in.next();
         
-        System.out.println("A zona eleitoral do eleitor: ");
+        System.out.println("Digite a zona eleitoral do eleitor (1-2-3): ");
         String zona = in.next();
         
         System.out.println("Digite a seção eleitoral do eleitor: ");
@@ -96,10 +101,14 @@ public class Eleitor implements Cadastro{
 
     @Override
     public void excluir() {
-        System.out.println("Digite a posição que deseja excluir: ");
-        int posicao = in.nextInt();
-        this.lista.remove(posicao);
-        System.out.println("Eleitor removido.");
+        try {
+            System.out.println("Digite a posição que deseja excluir: ");
+            int posicao = in.nextInt();
+            this.lista.remove(posicao);
+            System.out.println("Eleitor removido.");
+        } catch(NumberFormatException e){
+            System.out.println("Erro na formatação.");
+        }
     }
 
     @Override
@@ -112,7 +121,7 @@ public class Eleitor implements Cadastro{
             quantidade++;
         }
         
-        for(int j=0; j <=quantidade; j++){
+        for(int j=0; j <quantidade; j++){
             System.out.println(this.lista.get(j).getNome());
             System.out.println(this.lista.get(j).getTitulo());
             System.out.println("\n");
@@ -131,7 +140,7 @@ public class Eleitor implements Cadastro{
             quantidade++;
         }
         
-        for(int j=0; j <=quantidade; j++){   
+        for(int j=0; j <quantidade; j++){   
             if(this.lista.get(j).getNome().equals(nome)){
                 System.out.println(this.lista.get(j).getNome());
                 System.out.println(this.lista.get(j).getNascimento());
@@ -143,23 +152,27 @@ public class Eleitor implements Cadastro{
 
     @Override
     public void alterar() {
-        System.out.println("Digite a posicao do eleitor que deseja alterar: ");
-        int posicao = in.nextInt();
-        
-        System.out.println("Novo nome: ");
-        String novon = in.next();
-        this.lista.get(posicao).setNome(novon);
-        
-        System.out.println("Nova zona: ");
-        String novaz = in.next();
-        this.lista.get(posicao).setZona(novaz);
-        
-        System.out.println("Nova secao: ");
-        String novas = in.next();
-        this.lista.get(posicao).setSecao(novas);
-        
-        System.out.println("Nova data de nascimento (dd/mm/yyyy): ");
-        String novad = in.next();
-        this.lista.get(posicao).setNascimento(Data.getDate(novad));
+        try {
+            System.out.println("Digite a posicao do eleitor que deseja alterar: ");
+            int posicao = in.nextInt();
+
+            System.out.println("Novo nome: ");
+            String novon = in.next();
+            this.lista.get(posicao).setNome(novon);
+
+            System.out.println("Nova zona: ");
+            String novaz = in.next();
+            this.lista.get(posicao).setZona(novaz);
+
+            System.out.println("Nova secao: ");
+            String novas = in.next();
+            this.lista.get(posicao).setSecao(novas);
+
+            System.out.println("Nova data de nascimento (dd/mm/yyyy): ");
+            String novad = in.next();
+            this.lista.get(posicao).setNascimento(Data.getDate(novad));
+        } catch (NumberFormatException e){
+            System.out.println("Erro na formatação.");
+        }
     }
 }
