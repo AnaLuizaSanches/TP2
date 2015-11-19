@@ -181,11 +181,11 @@ public class Main {
         Vereador.lista.add(v3);
         
         //Eleitores
-        Eleitor e1 = new Eleitor();
+        Eleitor e1 = new Eleitor("IgorBanana", Data.getDate("15/07/1992"), "341414", "1", "15");
         Eleitor.lista.add(e1);
-        Eleitor e2 = new Eleitor();
+        Eleitor e2 = new Eleitor("JoaoBobao", Data.getDate("11/12/1922"), "303402", "2", "15");
         Eleitor.lista.add(e2);
-        Eleitor e3  =new Eleitor();
+        Eleitor e3  =new Eleitor("Fulano", Data.getDate("14/12/1998"), "123241", "1", "15");
         Eleitor.lista.add(e3);
     }
     

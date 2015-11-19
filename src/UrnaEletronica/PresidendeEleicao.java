@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class PresidendeEleicao extends Eleitor{
     static Scanner in = new Scanner(System.in);
-    
+    static String zonaUrna;
+    static String secaoUrna;
     
     public PresidendeEleicao(String nome, Date nascimento, String titulo, String zona, String secao) {
         super(nome, nascimento, titulo, zona, secao);
@@ -16,9 +17,9 @@ public class PresidendeEleicao extends Eleitor{
     public void iniciaEleição(){        //função inutil que esta pedindo no trabalho
         System.out.println("Iniciando processo de eleição...");
         System.out.println("Digite sua zona: ");
-        String zone = in.next();
+        zonaUrna = in.next();
         System.out.println("Digite sua seção: ");
-        String section = in.next();
+        secaoUrna = in.next();
         System.out.println("Digite o seu titulo: ");
         String titulo = in.next();
         System.out.println("Digite o seu nome: ");
