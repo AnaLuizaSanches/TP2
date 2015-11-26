@@ -14,6 +14,7 @@ public class Eleitor implements Cadastro{
     private String titulo;
     private String zona;
     private String secao;
+    private boolean votou;
 
     public Eleitor() {              //para o cadastrador
     }
@@ -24,6 +25,7 @@ public class Eleitor implements Cadastro{
         this.titulo = titulo;
         this.zona = zona;
         this.secao = secao;
+        votou = false;
     }
 
     public String getNome() {
@@ -71,23 +73,65 @@ public class Eleitor implements Cadastro{
         return "nome: " + nome + " nascimento: " + nascimento + " titulo: " + 
                 titulo + " zona: " + zona + " secao: " + secao;
     }
-
+    public static boolean existe(String titulo){
+        for(Eleitor e : lista){
+            if(e.getTitulo().equals(titulo))
+                return true;
+        }
+        return false;
+    }
+    public static boolean existe(String titulo, String zona, String secao){
+        for(Eleitor e : lista){
+            if(e.getTitulo().equals(titulo) && e.getSecao().equals(secao) && e.getZona().equals(zona))
+                return true;
+        }
+        return false;
+    }
+    public static boolean jaVotou(String titulo){
+        for(Eleitor e : lista){
+            if(e.getTitulo().equals(titulo))
+                if(e.votou)
+                    return true;
+        }
+        return false;
+    }
+    public static void votou(String titulo){
+        for(Eleitor e : lista){
+            if(e.getTitulo().equals(titulo))
+                    e.votou = true;
+        }
+    }
+    public static Eleitor getEleitor(String titulo){
+        for(Eleitor e : lista){
+            if(e.getTitulo().equals(titulo))
+                return e;
+        }
+        return null;
+    }
+    
     @Override
     public void Cadastrar() {
         System.out.println("Digite o nome do eleitor: ");
         String nome = in.nextLine();
-        
+        Date nascimento = null;
         //Data de nascimento    
         try {
             System.out.println("digite a data de nascimento (dd/mm/yyyy): ");
             String dataStr = in.next();
             nascimento = Data.getDate(dataStr);
         } catch(NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
-        
-        System.out.println("Digite o titulo do eleitor: ");
-        String titulo = in.next();
+        boolean loop = true;
+        String titulo;
+        do{
+            System.out.println("Digite o titulo do eleitor: ");
+            titulo = in.next();
+            if(!existe(titulo))
+                loop = false;
+            else
+                System.out.println("Erro: Titulo de eleitor já existente");
+        }while(loop);
         
         System.out.println("Digite a zona eleitoral do eleitor (1-2-3): ");
         String zona = in.next();
@@ -107,7 +151,7 @@ public class Eleitor implements Cadastro{
             this.lista.remove(posicao);
             System.out.println("Eleitor removido.");
         } catch(NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
 
@@ -172,7 +216,7 @@ public class Eleitor implements Cadastro{
             String novad = in.next();
             this.lista.get(posicao).setNascimento(Data.getDate(novad));
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
 }

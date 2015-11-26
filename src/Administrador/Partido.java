@@ -48,13 +48,32 @@ public class Partido {
     public String toString() {
         return " numero: " + numero + " sigla: " + sigla + "nome: " + nome;
     }
+    /* 
+    metodo que verifica se existe um partido com determinada sigla 
+    retornando true se exite e false se não existe    
+    */
+    public static boolean existe(String sigla){
+        for(Partido p : lista){
+            if(p.getSigla().equals(sigla))
+                return true;
+        }
+        return false;
+    }
     
     public static void Cadastrar(){
         System.out.println("Digite o nome do partido: ");
         String nome = in.next();
-        
-        System.out.println("Digite a sigla do partido: ");
-        String sigla = in.next();
+        boolean loop = true;
+        String sigla;
+        do{
+            System.out.println("Digite a sigla do partido: ");
+            sigla = in.next();
+            
+            if(!existe(sigla))
+                loop = false;
+            else
+                System.out.println("Erro: Sigla de Partido já existente");
+        }while(loop);
         
         System.out.println("Digite o numero do partido: ");
         String numero = in.next();
@@ -69,7 +88,7 @@ public class Partido {
             int posicao = in.nextInt();
             lista.remove(posicao);
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
     
@@ -86,7 +105,7 @@ public class Partido {
             String sigla = in.next();
             lista.get(posicao).setSigla(sigla);
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
     

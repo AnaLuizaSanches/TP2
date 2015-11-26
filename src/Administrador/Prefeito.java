@@ -1,5 +1,6 @@
 package Administrador;
 
+import Exceptions.InvalidNumberException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -25,12 +26,49 @@ public class Prefeito extends Candidato{
     public void setVice(VicePrefeito vice) {
         this.vice = vice;
     }
-
+    
     @Override
     public String toString() {
         return super.toString()+" vice: " + vice;
     }
-    
+    /* 
+    metodo que verifica se existe um prefeito com determinado codigo 
+    retornando true se exite e false se não existe    
+    */
+    public static boolean existe(String codigo){
+        for(Prefeito p : lista){
+            if(p.getCodigo().equals(codigo))
+                return true;
+        }
+        return false;
+    }
+    /*
+    metodo que exibe os atributos de um prefeito dado o seu codigo
+    */
+    public static void exibir(String codigo){
+        for(Prefeito p : lista){
+            if(p.getCodigo().equals(codigo))
+                p.toString();
+        }
+    }
+    /*
+    metodo que atribui voto ao vereador de determinado codigo
+    */
+    public static void atribuirVoto(String codigo){
+        for(Prefeito p : lista){
+            if(p.getCodigo().equals(codigo))
+                p.votar();
+        }
+    }
+    /*
+    metodo que gera o relatorio dos candidatos a prefeito
+    */
+    public static void relatorio(int totalVotos){
+        for(Prefeito p : lista){
+            System.out.println(p.getNome() +"("+p.getCodigo()+") : "
+                    + p.getVotos()/(100*totalVotos) +"% (" + p.getVotos() + ")");
+        }
+    }
     @Override
     public void Cadastrar() {
         System.out.println("Digite o nome do candidato: ");
@@ -44,12 +82,14 @@ public class Prefeito extends Candidato{
                 codigo = in.next();
 
                 if(codigo.length() != 2)
-                    throw new Exception();
+                    throw new InvalidNumberException("O código do prefeito deve ter 2 digitos");
+                else if(existe(codigo))
+                    System.out.println("Erro: codigo já existente");
                 else
                     loop = false;
             } catch(Exception e){
-                System.out.println("O codigo do prefeito deve ter 2 digitos");
-            }
+                System.out.println("Erro :"+e.getMessage());
+           }
         } while(loop);
 
         System.out.println("Digite o email do candidato: ");
@@ -80,7 +120,9 @@ public class Prefeito extends Candidato{
             int posicao = in.nextInt();
             this.lista.remove(posicao);
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
+        } catch (Exception e){
+            System.out.println("Erro :"+e.getMessage());
         }
     }
 
@@ -148,7 +190,7 @@ public class Prefeito extends Candidato{
             System.out.println("Novo vice: ");
             this.lista.get(posicao).setVice(lookForVice());
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
     
@@ -193,7 +235,7 @@ public class Prefeito extends Candidato{
         }
         
         do{
-            System.out.println("Digite o codigo do vice-prefeito: ");
+            System.out.println("Digite o codigo do vice-prefeitna formatação.o: ");
             String num2 = in.next();
             for(int k=0; k<quantVice; k++){
                 if(VicePrefeito.lista.get(k).getCodigo().equals(num2)){

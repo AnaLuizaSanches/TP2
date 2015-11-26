@@ -1,5 +1,6 @@
 package Administrador;
 
+import UrnaEletronica.Eleicoes;
 import java.util.Scanner;
 
 public class Main {                
@@ -7,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         preCadastros();
         menuCadastros();        //inicia partes de cadastros
-        
     }
     
     public static void menuCadastros(){
@@ -39,7 +39,7 @@ public class Main {
                     menu2(5);
                     break;
                 case 6:
-                    loop = false;
+                    Eleicoes.iniciaEleicao();
                 default:
                     System.out.println("Opção irregular.");
                     break;
@@ -78,7 +78,7 @@ public class Main {
                 case 2:
                     if(index == 1)
                         Prefeito.cadastrador.excluir();
-                    else
+                    else 
                         if(index == 2)
                             Vereador.cadastrador.excluir();
                     else

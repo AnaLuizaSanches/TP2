@@ -1,5 +1,6 @@
 package Administrador;
 
+import Exceptions.InvalidNumberException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -10,9 +11,47 @@ public class Vereador extends Candidato{
 
     public Vereador() {
     }
-    
+
     public Vereador(String codigo, String nome, String email, Date nascimento, Partido partido) {
         super(codigo, nome, email, nascimento, partido);
+    }
+    /* 
+    metodo que verifica se existe um vereador com determinado codigo 
+    retornando true se exite e false se não existe    
+    */
+    public static boolean existe(String codigo){
+        for(Vereador v : lista){
+            if(v.getCodigo().equals(codigo))
+                return true;
+        }
+        return false;
+    }
+    /*
+    metodo que exibe os atributos de um vereador dado o seu codigo
+    */
+    public static void exibir(String codigo){
+        for(Vereador v : lista){
+            if(v.getCodigo().equals(codigo))
+                v.toString();
+        }
+    }
+    /*
+    metodo que atribui voto ao vereador de determinado codigo
+    */
+    public static void atribuirVoto(String codigo){
+        for(Vereador v : lista){
+            if(v.getCodigo().equals(codigo))
+                v.votar();
+        }
+    }
+        /*
+    metodo que gera o relatorio dos candidatos a Vereador
+    */
+    public static void relatorio(int totalVotos){
+        for(Vereador v : lista){
+            System.out.println(v.getNome() +"("+v.getCodigo()+") : "
+                    + v.getVotos()/(100*totalVotos) +"% (" + v.getVotos() + ")");
+        }
     }
 
     @Override
@@ -27,11 +66,11 @@ public class Vereador extends Candidato{
                 System.out.println("Digite o codigo do candidato: ");
                 codigo = in.next();
                 if(codigo.length() != 4)
-                    throw new Exception();
+                    throw new InvalidNumberException("O codigo do vereador deve possuir 4 digitos.");
                 else
                     loop = false;
             } catch(Exception e){
-                System.out.println("O codigo do vereador deve possuir 4 digitos.");
+                System.out.println("Erro :"+e.getMessage());
             }
         } while(loop);
         
@@ -58,7 +97,7 @@ public class Vereador extends Candidato{
             int posicao = in.nextInt();
             this.lista.remove(posicao);
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
 
@@ -124,7 +163,7 @@ public class Vereador extends Candidato{
             Partido partido = lookForPartido();
             this.lista.get(posicao).setPartido(partido);
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
     

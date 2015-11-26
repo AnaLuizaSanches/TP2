@@ -11,7 +11,8 @@ public abstract class Candidato implements Cadastro{
     private String nome;
     private String email;
     private Date nascimento;
-    private Partido partido;    
+    private Partido partido;
+    private int Votos;
     
     public Candidato() {            //para o cadastrador
     }
@@ -22,6 +23,7 @@ public abstract class Candidato implements Cadastro{
         this.email = email;
         this.nascimento = nascimento;
         this.partido = partido;
+        this.Votos = 0;
     }
 
     public String getCodigo() {
@@ -64,10 +66,21 @@ public abstract class Candidato implements Cadastro{
         this.partido = partido;
     }
 
+    public int getVotos() {
+        return Votos;
+    }
+
+    public void setVotos(int Votos) {
+        this.Votos = Votos;
+    }
+    
     @Override
     public String toString() {
         return "codigo: " + codigo + " nome: " + nome + " email: " + email + " nascimento: "
                 + Data.getString(nascimento) + " partido: " + partido.toString();
+    }
+    public void votar(){
+        Votos++;
     }
 
     @Override

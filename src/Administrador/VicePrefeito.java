@@ -15,6 +15,26 @@ public class VicePrefeito extends Candidato{
     public VicePrefeito(String codigo, String nome, String email, Date nascimento, Partido partido) {
         super(codigo, nome, email, nascimento, partido);
     }
+    /* 
+    metodo que verifica se existe um vice-prefeito com determinado codigo
+    retornando true se exite e false se não existe    
+    */
+    public static boolean existe(String codigo){
+        for(VicePrefeito p : lista){
+            if(p.getCodigo().equals(codigo))
+                return true;
+        }
+        return false;
+    }
+    /*
+    metodo que exibe os atributos de um vice-prefeito dado o seu codigo
+    */
+    public static void exibir(String codigo){
+        for(VicePrefeito p : lista){
+            if(p.getCodigo().equals(codigo))
+                p.toString();
+        }
+    }
 
     @Override
     public void Cadastrar() {
@@ -40,7 +60,7 @@ public class VicePrefeito extends Candidato{
             VicePrefeito aux = new VicePrefeito(codigo, nome, email, nascimento, partido);
             this.lista.add(aux);
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
 
@@ -51,7 +71,7 @@ public class VicePrefeito extends Candidato{
             int posicao = in.nextInt();
             this.lista.remove(posicao);
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
 
@@ -117,7 +137,7 @@ public class VicePrefeito extends Candidato{
             Partido partido = lookForPartido();
             this.lista.get(posicao).setPartido(partido);
         } catch (NumberFormatException e){
-            System.out.println("Erro na formatação.");
+            System.out.println("Erro :"+e.getMessage());
         }
     }
  

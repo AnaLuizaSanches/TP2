@@ -1,10 +1,11 @@
 package Administrador;
 
+import Exceptions.InvalidNumberException;
 import java.util.ArrayList;
 
 public interface Cadastro {
 
-    public abstract void Cadastrar();
+    public abstract void Cadastrar() throws InvalidNumberException;
     
     public abstract void excluir();
     
