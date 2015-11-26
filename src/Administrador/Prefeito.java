@@ -1,7 +1,10 @@
 package Administrador;
 
+import Ferramentas.Data;
 import Exceptions.InvalidNumberException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -48,7 +51,7 @@ public class Prefeito extends Candidato{
     public static void exibir(String codigo){
         for(Prefeito p : lista){
             if(p.getCodigo().equals(codigo))
-                p.toString();
+                System.out.println(p.toString());
         }
     }
     /*
@@ -66,9 +69,34 @@ public class Prefeito extends Candidato{
     public static void relatorio(int totalVotos){
         for(Prefeito p : lista){
             System.out.println(p.getNome() +"("+p.getCodigo()+") : "
-                    + p.getVotos()/(100*totalVotos) +"% (" + p.getVotos() + ")");
+           + (p.getVotos()*100)/totalVotos +" % (" + p.getVotos() + ")");
         }
+        ordenar();
     }
+    /*
+    metodo que ordena decrescente
+    */
+    public static void ordenar(){
+        Collections.sort(lista, new Comparator<Prefeito>() {
+        @Override public int compare(Prefeito p1, Prefeito p2) {
+            return p2.getVotos() - p1.getVotos();
+        }
+    });
+    }
+    /*
+    metodo que verifica e imprime se há um ganhador das eleiçoes ou se tera segundo turno.
+    */
+    public static void resultado(int totalVotos){
+        ordenar();
+        if(lista.get(0).getVotos() >= (1 + (totalVotos/2))){
+            System.out.println("O candidato a Prefeito "+lista.get(0).getNome()
+                    +" ganhou as eleições");
+        }else{
+            System.out.println("Segundo turno entre "+lista.get(0).getNome() 
+                    +" e "+ lista.get(1).getNome()+" para Prefeito");
+        }    
+    }
+    
     @Override
     public void Cadastrar() {
         System.out.println("Digite o nome do candidato: ");

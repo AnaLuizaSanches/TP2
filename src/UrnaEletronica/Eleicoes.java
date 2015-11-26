@@ -3,7 +3,6 @@ package UrnaEletronica;
 import Administrador.Eleitor;
 import Administrador.Prefeito;
 import Administrador.Vereador;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Eleicoes {
@@ -75,7 +74,7 @@ public class Eleicoes {
             if(!Eleitor.existe(titulo,zonaUrna,secaoUrna))
                 throw new Exception("Erro: eleitor em zona/secao errada");
             String voto = null;
-            String conf = null;
+            int conf = 0;
             boolean loop = true;
             //votação do prefeito
             do{
@@ -85,25 +84,24 @@ public class Eleicoes {
                 if(voto.length() != 2)
                     throw new Exception("O código do prefeito deve ter 2 digitos");
                 if(voto.equals("99")){
-                    System.out.println("Voto branco. confirmar ? (s para confirmar)");
-                    conf = in.next();
-                    if(conf == "s"){
+                    System.out.println("Voto branco. confirmar ? (0/1)");
+                    conf = in.nextInt();
+                    if(conf == 1){
                         brancosPref++;
                         loop = false;
-                    } 
-                    
+                    }  
                 }else if(!Prefeito.existe(voto)){
-                    System.out.println("Voto nulo. confirmar ? (s para confirmar)");
-                    conf = in.next();
-                    if(conf == "s"){
+                    System.out.println("Voto nulo. confirmar ? (0/1)");
+                    conf = in.nextInt();
+                    if(conf == 1){
                         nulosPref++;
                         loop = false;
                     } 
                 }else{
                     Prefeito.exibir(voto);
-                    System.out.println("confirmar ? (s para confirmar)");
-                    conf = in.next();
-                    if(conf == "s"){
+                    System.out.println("confirmar ? (0/1)");
+                    conf = in.nextInt();
+                    if(conf == 1){
                         Prefeito.atribuirVoto(voto);
                         loop = false;
                     } 
@@ -121,25 +119,25 @@ public class Eleicoes {
                 voto = in.next();
                 if(voto.length() != 4)
                     throw new Exception("O código do vereador deve ter 4 digitos");
-                if(!Vereador.existe(voto)){
-                    System.out.println("Voto nulo. confirmar ? (s para confirmar)");
-                    conf = in.next();
-                    if(conf == "s"){
-                        nulosVer++;
+                if(voto.equals("9999")){
+                    System.out.println("Voto branco. confirmar ? (0/1)");
+                    conf = in.nextInt();
+                    if(conf == 1){
+                        brancosVer++;
                         loop = false;
                     } 
-                }else if(voto.equals("9999")){
-                    System.out.println("Voto branco. confirmar ? (s para confirmar)");
-                    conf = in.next();
-                    if(conf == "s"){
-                        brancosVer++;
+                }else if(!Vereador.existe(voto)){
+                    System.out.println("Voto nulo. confirmar ? (0/1)");
+                    conf = in.nextInt();
+                    if(conf == 1){
+                        nulosVer++;
                         loop = false;
                     } 
                 }else{
                     Vereador.exibir(voto);
-                    System.out.println("confirmar ? (s para confirmar)");
-                    conf = in.next();
-                    if(conf == "s"){
+                    System.out.println("confirmar ? (0/1)");
+                    conf = in.nextInt();
+                    if(conf == 1){
                         Vereador.atribuirVoto(voto);
                         loop = false;
                     } 
@@ -150,6 +148,7 @@ public class Eleicoes {
             }while(loop);    
             
             numEleitores++;//incrementa o numero de eleitores
+            Eleitor.votou(titulo);// informa que o eleitor acaba de votar, e nao podera votar novamente
         }else{
             System.out.println("Não há mais eleitores para votar, favor finalizar eleição");      
         }
@@ -162,17 +161,25 @@ public class Eleicoes {
     }
     
     public static void relatorio(){
-        if(numEleitores != 0){
-            System.out.println("Hora inicial : " + abertura + " Hora Final : "+fechamento);
-            System.out.println("Prefeito");
-            Prefeito.relatorio(numEleitores);
-            System.out.println("Votos Brancos"+(brancosPref*100)/numEleitores+"% ("+ brancosPref+")");
-            System.out.println("Votos Nulos"+(nulosPref*100)/numEleitores+"% ("+ nulosPref+")");
-            System.out.println("Vereador");
-            Vereador.relatorio(numEleitores);
-            System.out.println("Votos Brancos"+(brancosVer*100)/numEleitores+"% ("+ brancosVer+")");
-            System.out.println("Votos Nulos"+(nulosVer*100)/numEleitores+"% ("+ nulosVer+")");
-            System.out.println("Total de votos: " +(numEleitores*100)/maxEleitores+"% ("+numEleitores+")");
-        }
+        int num = numEleitores,max = maxEleitores;
+        //variaveis usadas nos denominadores, caso seja 0 sao alteradas para 1.
+        if(numEleitores == 0)
+            num = 1;
+        if(maxEleitores == 0)
+            max = 1;
+        System.out.println("\n\n\tHora inicial : " + abertura + " Hora Final : "+fechamento);
+        System.out.println("\n\tPrefeito\n");
+        Prefeito.relatorio(num);
+        System.out.println("Votos Brancos : "+(brancosPref*100)/num+" % ("+ brancosPref+")");
+        System.out.println("Votos Nulos : "+(nulosPref*100)/num+" % ("+ nulosPref+")");
+        System.out.println("\n\tVereador\n");
+        Vereador.relatorio(num);
+        System.out.println("Votos Brancos : "+(brancosVer*100)/num+"% ("+ brancosVer+")");
+        System.out.println("Votos Nulos : "+(nulosVer*100)/num+" % ("+ nulosVer+")");
+        System.out.println("Total de votos : " +(numEleitores*100)/max+" % ("+numEleitores+")");
+        System.out.println("\n\tResultado Final\n");
+        Prefeito.resultado(numEleitores);
+        Vereador.resultado(numEleitores);
+        System.out.println("\n\n");
     }
 }

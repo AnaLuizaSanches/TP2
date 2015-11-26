@@ -1,7 +1,10 @@
 package Administrador;
 
+import Ferramentas.Data;
 import Exceptions.InvalidNumberException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -14,7 +17,7 @@ public class Vereador extends Candidato{
 
     public Vereador(String codigo, String nome, String email, Date nascimento, Partido partido) {
         super(codigo, nome, email, nascimento, partido);
-    }
+    }    
     /* 
     metodo que verifica se existe um vereador com determinado codigo 
     retornando true se exite e false se não existe    
@@ -32,7 +35,7 @@ public class Vereador extends Candidato{
     public static void exibir(String codigo){
         for(Vereador v : lista){
             if(v.getCodigo().equals(codigo))
-                v.toString();
+                System.out.println(v.toString());
         }
     }
     /*
@@ -44,14 +47,38 @@ public class Vereador extends Candidato{
                 v.votar();
         }
     }
-        /*
+    /*
     metodo que gera o relatorio dos candidatos a Vereador
     */
     public static void relatorio(int totalVotos){
         for(Vereador v : lista){
             System.out.println(v.getNome() +"("+v.getCodigo()+") : "
-                    + v.getVotos()/(100*totalVotos) +"% (" + v.getVotos() + ")");
+           + (v.getVotos()*100)/totalVotos +" % (" + v.getVotos() + ")");
         }
+    }
+    /*
+    metodo que ordena decrescente
+    */
+    public static void ordenar(){
+        Collections.sort(lista, new Comparator<Vereador>() {
+        @Override
+        public int compare(Vereador v1, Vereador v2) {
+            return v2.getVotos() - v1.getVotos();
+        }
+    });
+    }
+    /*
+    metodo que verifica e imprime se há um ganhador das eleiçoes ou se tera segundo turno.
+    */
+    public static void resultado(int totalVotos){
+        ordenar();
+        if(lista.get(0).getVotos() >= (1 + (totalVotos/2))){
+            System.out.println("O candidato a Vereador "+lista.get(0).getNome()
+                    +" ganhou as eleições");
+        }else{
+            System.out.println("Segundo turno entre "+lista.get(0).getNome() 
+                    +" e "+ lista.get(1).getNome()+" para Vereador");
+        }    
     }
 
     @Override
